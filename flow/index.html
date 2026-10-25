@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SYNAX Sales Flows</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Outfit:wght@700;800&family=Sora:wght@700;800&family=Nunito:wght@600;700;800&display=swap">
+<style>
+/* Layout: three stacked "door" cards, one per age angle, each wearing its flow's own palette. */
+:root{
+  color-scheme:dark;
+  --bg:#0b1324; --card:#121c33; --fg:#f2f6fc; --muted:#9fb0c9; --line:#22304d; --sun:#ffcc29;
+  --pra:#ff6b57; --sr:#1fb6ef; --spm:#7b61ff;
+  --f-body:'Nunito',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-weight:600;line-height:1.55;padding-block:40px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto}
+header{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+header img{width:52px;height:52px;border-radius:50%}
+h1{font-family:'Outfit',system-ui,sans-serif;font-size:clamp(26px,5vw,38px);line-height:1.1;text-wrap:balance}
+.intro{color:var(--muted);max-width:640px;margin:8px 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+a.card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:transform .2s,border-color .2s}
+a.card:hover,a.card:focus-visible{transform:translateY(-4px);border-color:var(--c)}
+a.card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+.top{position:relative;padding:22px 20px 18px;background:var(--g);min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.top img{position:absolute;right:14px;bottom:-8px;width:78px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.45));transform:rotate(8deg)}
+.top .n{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.85}
+.top h2{font-size:27px;line-height:1.05;margin:4px 0 2px;max-width:70%}
+.top .age{font-weight:800;font-size:14px;opacity:.9}
+.c-pra{--c:var(--pra);--g:linear-gradient(140deg,#ff9a5c,#ff6b57 55%,#e8524a)}
+.c-pra h2{font-family:'Baloo 2',system-ui,sans-serif;color:#22305c}
+.c-pra .n,.c-pra .age{color:#22305c}
+.c-sr{--c:var(--sr);--g:radial-gradient(120% 120% at 20% 0%,#1d5a9e,#0b2547 70%)}
+.c-sr h2{font-family:'Outfit',system-ui,sans-serif}
+.c-spm{--c:var(--spm);--g:radial-gradient(120% 120% at 20% 0%,#2a3a80,#0d1636 60%,#060a1c)}
+.c-spm h2{font-family:'Sora',system-ui,sans-serif;font-size:24px}
+.body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.hook{font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.meta span{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--line);color:var(--fg)}
+.go{margin-top:auto;font-weight:800;color:var(--sun)}
+.note{margin-top:28px;color:var(--muted);font-size:13.5px;max-width:720px}
+.note b{color:var(--fg)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="assets/img/logo.webp" alt="Logo SYNAX" width="200" height="200"><h1>3 Flow Jualan SYNAX</h1></header>
+  <p class="intro">Satu produk, tiga sudut cerita. Setiap flow ikut struktur sales letter: hook, semakan masalah interaktif, penerangan, perbandingan, bahan, timeline, testimoni, pakej, borang tempahan terus ke WhatsApp, jaminan &amp; FAQ.</p>
+  <div class="grid">
+    <a class="card c-pra" href="prasekolah.html">
+      <div class="top"><span class="n">FLOW 1</span><h2>Prasekolah</h2><span class="age">Anak 3–6 tahun · 1 biji sehari</span><img src="assets/img/bottle.webp" alt="" width="325" height="601"></div>
+      <div class="body"><p class="hook">“Anak tadika lebih tenang, ceria &amp; seronok belajar ABC.” Sudut tantrum, susah duduk diam, pelat &amp; tingkap emas tumbesaran otak.</p>
+        <div class="meta"><span>±150 hari / 4+1</span><span>RM0.53 sehari</span></div><span class="go">Buka flow →</span></div>
+    </a>
+    <a class="card c-sr" href="sekolah-rendah.html">
+      <div class="top"><span class="n">FLOW 2</span><h2>Sekolah Rendah</h2><span class="age">Anak 7–12 tahun · 2 biji sehari</span><img src="assets/img/bottle.webp" alt="" width="325" height="601"></div>
+      <div class="body"><p class="hook">“Anak fokus lebih lama masa belajar &amp; siapkan homework sendiri.” Sudut perang homework, cepat lupa, susah bangun pagi.</p>
+        <div class="meta"><span>±75 hari / 4+1</span><span>RM1.07 sehari</span></div><span class="go">Buka flow →</span></div>
+    </a>
+    <a class="card c-spm" href="spm.html">
+      <div class="top"><span class="n">FLOW 3</span><h2>Remaja SPM</h2><span class="age">13 tahun ke atas · 2 pagi + 2 malam</span><img src="assets/img/bottle.webp" alt="" width="325" height="601"></div>
+      <div class="body"><p class="hook">“Ulangkaji lebih fokus, masuk dewan SPM lebih tenang.” Sudut lupa formula, mengantuk, stres exam &amp; pelan harian calon SPM.</p>
+        <div class="meta"><span>±37 hari / 4+1</span><span>RM2.16 sehari</span></div><span class="go">Buka flow →</span></div>
+    </a>
+  </div>
+  <p class="note"><b>Nota:</b> Harga, pakej, dos ikut umur, testimoni &amp; maklumat syarikat diambil dari synaxhq.site. Borang tempahan menghantar mesej ke WhatsApp 011-5308 7474; tukar nombor dalam <b>assets/synax.js</b> (CONFIG) jika perlu.</p>
+</div>
+</body>
+</html>
