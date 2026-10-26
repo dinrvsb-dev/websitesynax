@@ -1,0 +1,119 @@
+<title>Prompt Gambar SYNAX</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Nunito:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working checklist — flow tabs on top, one row per image file, prompt in a mono block with a copy button. */
+:root{
+  --bg:#f3f6fa; --card:#ffffff; --fg:#13233a; --muted:#5b6b80; --line:#dce5ef;
+  --accent:#1a8fc4; --accent-soft:#e1f2fa; --must:#d9542f; --must-soft:#fde9e2; --ok:#17955a; --ok-soft:#e0f5ea; --code:#f6f8fb;
+  --f-head:'Outfit',system-ui,sans-serif; --f-body:'Nunito',system-ui,sans-serif; --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1422; --card:#131e30; --fg:#e8eef7; --muted:#9aaac0; --line:#24324a;
+  --accent:#4cc0f0; --accent-soft:#12324a; --must:#ff8a66; --must-soft:#3a1f18; --ok:#4fd38f; --ok-soft:#123326; --code:#0f1828; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1422; --card:#131e30; --fg:#e8eef7; --muted:#9aaac0; --line:#24324a;
+  --accent:#4cc0f0; --accent-soft:#12324a; --must:#ff8a66; --must-soft:#3a1f18; --ok:#4fd38f; --ok-soft:#123326; --code:#0f1828; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-weight:600;line-height:1.5;font-size:15px}
+.wrap{max-width:860px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--f-head);font-size:clamp(24px,4.5vw,32px);margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 18px;max-width:640px}
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:20px}
+.guide div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;min-width:0}
+.guide b{display:block;font-family:var(--f-head);font-size:14px;margin-bottom:2px}
+.guide code{font-family:var(--f-mono);font-size:12px;background:var(--code);padding:1px 5px;border-radius:5px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line);margin-bottom:14px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button,.chip{font:inherit;font-weight:800;font-size:13.5px;border:1px solid var(--line);background:var(--card);color:var(--fg);padding:8px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.prog{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog b{color:var(--ok)}
+.folder{font-family:var(--f-mono);font-size:13px;color:var(--muted);margin:0 0 12px}
+.list{display:grid;gap:10px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.item.done{opacity:.55}
+.item.done .fn{text-decoration:line-through}
+.chk{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);cursor:pointer}
+.main{min-width:0}
+.head{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.fn{font-family:var(--f-mono);font-weight:500;font-size:14px}
+.tag{font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-variant-numeric:tabular-nums}
+.tag.must{background:var(--must-soft);color:var(--must)}
+.tag.opt{background:var(--code);color:var(--muted)}
+.where{font-size:13.5px;color:var(--muted);margin:4px 0 2px}
+.what{font-size:14.5px;margin:0 0 8px}
+.prompt{position:relative;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:10px 92px 10px 12px;font-family:var(--f-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.copy{position:absolute;top:8px;right:8px;font:inherit;font-family:var(--f-body);font-weight:800;font-size:12.5px;padding:6px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.copy.ok{background:var(--ok)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:480px){.prompt{padding-right:12px;padding-bottom:46px}.copy{top:auto;bottom:8px}}
+</style>
+
+<div class="wrap">
+  <h1>Prompt Gambar SYNAX</h1>
+  <p class="sub">Semua gambar yang aku perlukan untuk 3 flow. Salin prompt, generate di mana-mana tool percuma, simpan ikut nama fail &amp; folder. Tanda ✓ bila siap (tersimpan dalam browser kau).</p>
+  <div class="guide">
+    <div><b>📁 Folder</b><code>prasekolah/</code> <code>sekolah-rendah/</code> <code>spm/</code></div>
+    <div><b>🏷️ Nama fail</b>Ikut tepat, contoh <code>pain-1.jpg</code>. JPG/PNG/WebP, lebar ≥1200px.</div>
+    <div><b>📐 Nisbah</b>Pilih nisbah yang tertulis (1:1, 4:3, 16:9) dalam tool.</div>
+    <div><b>🚫 Elak</b>Tulisan, logo &amp; botol produk dalam gambar. Botol SYNAX sebenar aku letak sendiri.</div>
+  </div>
+  <div class="bar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <button type="button" class="chip" id="onlyMust" aria-pressed="false">Wajib sahaja</button>
+    <span class="prog" id="prog"></span>
+  </div>
+  <p class="folder" id="folder"></p>
+  <div class="list" id="list"></div>
+</div>
+
+<script>
+const DATA=/*DATA*/null;
+const keys=Object.keys(DATA);
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let cur=store.get('synax_prompt_tab',keys[0]);if(!DATA[cur])cur=keys[0];
+let onlyMust=store.get('synax_prompt_must',false);
+const done=store.get('synax_prompt_done',{});
+const tabs=document.getElementById('tabs'),list=document.getElementById('list');
+
+keys.forEach(k=>{const b=document.createElement('button');b.type='button';b.role='tab';b.dataset.k=k;b.textContent=DATA[k].title.split('·')[1].trim();
+  b.addEventListener('click',()=>{cur=k;store.set('synax_prompt_tab',k);render()});tabs.appendChild(b)});
+const mustBtn=document.getElementById('onlyMust');
+mustBtn.addEventListener('click',()=>{onlyMust=!onlyMust;store.set('synax_prompt_must',onlyMust);render()});
+
+function copyText(t,btn){
+  const ok=()=>{btn.textContent='✓ Disalin';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Salin';btn.classList.remove('ok')},1600)};
+  const pre=btn.parentElement.querySelector('.txt');
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Dipilih, tekan Copy'};
+  try{navigator.clipboard.writeText(t).then(ok,fallback)}catch(e){fallback()}
+}
+function render(){
+  [...tabs.children].forEach(b=>b.setAttribute('aria-selected',b.dataset.k===cur));
+  mustBtn.setAttribute('aria-pressed',onlyMust);
+  const f=DATA[cur];
+  document.getElementById('folder').textContent='📁 '+f.title+'  →  simpan dalam folder '+cur+'/';
+  list.innerHTML='';
+  f.items.filter(i=>!onlyMust||i.must).forEach(i=>{
+    const id=cur+'/'+i.fn,el=document.createElement('div');el.className='item'+(done[id]?' done':'');
+    el.innerHTML=`<input type="checkbox" class="chk" id="c-${cur}-${i.fn}" aria-label="Tanda ${i.fn} siap" ${done[id]?'checked':''}>
+      <div class="main"><div class="head"><span class="fn">${i.fn}.jpg</span><span class="tag">${i.ar}</span><span class="tag ${i.must?'must':'opt'}">${i.must?'Wajib':'Pilihan'}</span></div>
+      <p class="where">📍 ${i.where}</p><p class="what">${i.what}</p>
+      <div class="prompt"><span class="txt"></span><button type="button" class="copy">Salin</button></div></div>`;
+    el.querySelector('.txt').textContent=i.prompt;
+    el.querySelector('.copy').addEventListener('click',e=>copyText(i.prompt,e.currentTarget));
+    el.querySelector('.chk').addEventListener('change',e=>{done[id]=e.target.checked;store.set('synax_prompt_done',done);el.classList.toggle('done',e.target.checked);prog()});
+    list.appendChild(el);
+  });
+  prog();
+}
+function prog(){
+  const all=keys.flatMap(k=>DATA[k].items.map(i=>k+'/'+i.fn)),n=all.filter(x=>done[x]).length;
+  const f=DATA[cur].items,m=f.filter(i=>i.must),md=m.filter(i=>done[cur+'/'+i.fn]).length;
+  document.getElementById('prog').innerHTML=`Flow ini: <b>${md}/${m.length}</b> wajib · Semua: <b>${n}/${all.length}</b>`;
+}
+render();
+</script>
