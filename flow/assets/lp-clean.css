@@ -1,0 +1,14 @@
+/* Cleaned-page overrides (no claim imagery; neutral product visual) */
+.hero{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.two.one{grid-template-columns:1fr}
+.err-box{background:#fdeeee;border:2px solid #f5cccc;color:#8a1f1f;border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.45;margin-bottom:12px}
+.err-box a{font-weight:800;text-decoration:underline}
+.fld input[type=date]{width:100%}
+.gaji.bad .err{display:block}
+.packbox{margin:16px auto 18px;max-width:440px;text-align:left;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:18px;padding:14px 16px;color:#fff}
+.packbox b{display:block;font-family:var(--f-head);font-size:20px;line-height:1.2;margin-bottom:4px}
+.packbox p{font-size:15px;line-height:1.45}
+.packbox.ink{background:var(--white);border-color:var(--line);color:var(--ink);box-shadow:var(--shadow)}
+.fit .n.warn{background:#fff7e0;border-color:#f3d98a}
+.fit .n.warn li::before{content:"!";color:#b45309}
+.get li.small,.two li.small{font-size:13.5px;color:var(--muted)}

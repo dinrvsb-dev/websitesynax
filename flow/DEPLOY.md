@@ -1,5 +1,21 @@
 # Deploy 3 landing page SYNAX ke synaxhq.site
 
+## Kemas kini v2 (gantikan versi "clean" di /lp/)
+
+Flow penuh dipulangkan: pain point bergambar, meter semakan, perbandingan, mineral, timeline, testimoni, tab rutin, KKM, jaminan dan P.S.
+Bahagian **pakej, borang order (ERP/Billplz), Meta Pixel, head/OG, sticky bar dan pautan Dasar Privasi** diambil terus dari versi live `/lp/`, jadi integrasi order tidak berubah.
+
+Gantikan fail-fail ini di `public/lp/`:
+- `prasekolah.html`, `sekolah-rendah.html`, `spm.html`
+- `assets/synax.css`, `assets/synax.js`, `assets/lp-clean.css` (JS & CSS sama seperti versi live, cuma line ending LF)
+- `assets/img/prasekolah/`, `assets/img/sekolah-rendah/`, `assets/img/spm/` (semua gambar)
+- `assets/img/3.webp`, `5.webp`, `7.webp`, `t1–t4.webp`, `mineral-*.webp`, `surat-kkm.webp`
+
+Kekalkan `assets/img/og.jpg` yang sedia ada di server. Cache-buster dalam HTML ditukar kepada `?v=flow2`.
+
+---
+
+
 Repo: https://github.com/dinrvsb-dev/websitesynax (branch `claude/busy-dirac-vwj5ym`), folder `flow/`.
 
 Halaman ni HTML/CSS/JS statik biasa. Tak perlu build, tak perlu React, dan tak ada dependency.
